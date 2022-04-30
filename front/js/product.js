@@ -87,6 +87,16 @@ function checkCart() {
 function addToCart(productDetails) {
 	let productsInLocalStorage = JSON.parse(localStorage.getItem("cartItems"));
 
+	const popupConfirmation = function () {
+		if (
+			confirm(
+				"Produit ajouté au panier !\nPour consulter votre panier, Cliquez sur OK !"
+			)
+		) {
+			window.location.href = "cart.html";
+		}
+	};
+
 	if (productsInLocalStorage) {
 		const resultFind = productsInLocalStorage.find(function (product) {
 			return (
@@ -107,14 +117,6 @@ function addToCart(productDetails) {
 	}
 	localStorage.setItem("cartItems", JSON.stringify(productsInLocalStorage));
 	popupConfirmation();
-
-	const popupConfirmation = function () {
-		if (
-			confirm(
-				"Produit ajouté au panier !\nPour consulter votre panier, Cliquez sur OK !"
-			)
-		) {
-			window.location.href = "cart.html";
-		}
-	};
 }
+
+getProduct();
