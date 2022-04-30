@@ -83,3 +83,38 @@ function checkCart() {
 
 	addToCart(productDetails);
 }
+
+function addToCart(productDetails) {
+	let productsInLocalStorage = JSON.parse(localStorage.getItem("cartItems"));
+
+	if (productsInLocalStorage) {
+		const resultFind = productsInLocalStorage.find(function (product) {
+			return (
+				product.id === productDetails.id &&
+				product.color === productDetails.color
+			);
+		});
+
+		if (resultFind) {
+			let updateQuantity = productDetails.quantity + resultFind.quantity;
+			resultFind.quantity = updateQuantity;
+		} else {
+			productsInLocalStorage.push(productDetails);
+		}
+	} else {
+		productsInLocalStorage = [];
+		productsInLocalStorage.push(productDetails);
+	}
+	localStorage.setItem("cartItems", JSON.stringify(productsInLocalStorage));
+	popupConfirmation();
+
+	const popupConfirmation = function () {
+		if (
+			confirm(
+				"Produit ajouté au panier !\nPour consulter votre panier, Cliquez sur OK !"
+			)
+		) {
+			window.location.href = "cart.html";
+		}
+	};
+}
