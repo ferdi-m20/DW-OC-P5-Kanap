@@ -45,3 +45,41 @@ function displaySelectedProduct(item) {
 	const addButton = document.getElementById("addToCart");
 	addButton.addEventListener("click", checkCart);
 }
+
+function checkCart() {
+	let productColor = document.querySelector("#colors").value;
+	let productQuantity = Number(document.querySelector("#quantity").value);
+	let productDetails = {
+		id: productId,
+		color: productColor,
+		quantity: productQuantity,
+	};
+
+	let error = false;
+	let msgError = "";
+
+	if (productColor == "") {
+		msgError += "Veuillez sélectionner une couleur\r\n";
+		error = true;
+	} else if (!Number.isInteger(productQuantity)) {
+		msgError +=
+			"Veuillez renseigner un nombre entier compris entre 1 et 100\r\n";
+		error = true;
+	} else if (productQuantity == 0) {
+		msgError += "Veuillez renseigner une quantité\r\n";
+		error = true;
+	} else if (productQuantity > 100) {
+		msgError += "La quantité maximale autorisée est de 100\r\n";
+		error = true;
+	} else if (productQuantity < 0) {
+		msgError += "Veuillez ne pas saisir de valeur négative!\r\n";
+		error = true;
+	}
+
+	if (error) {
+		alert(msgError);
+		return;
+	}
+
+	addToCart(productDetails);
+}
