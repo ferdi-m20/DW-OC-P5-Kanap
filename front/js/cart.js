@@ -136,6 +136,26 @@ async function grandTotal() {
 	document.getElementById("totalPrice").textContent = totalPrice;
 }
 
+async function singleProductPrice(dataId, dataColor, productPrice) {
+	// console.log(dataId, dataColor);
+	let productsInLocalStorage = JSON.parse(localStorage.getItem("cartItems"));
+	let price = 0;
+	const article = await getProductDetails(dataId);
+	for (product in productsInLocalStorage) {
+		// console.log(article);
+		if (
+			productsInLocalStorage[product].id == dataId &&
+			productsInLocalStorage[product].color == dataColor
+		) {
+			price += parseInt(
+				article.price * productsInLocalStorage[product].quantity
+			);
+			productPrice.textContent = price + " €";
+		}
+	}
+	grandTotal();
+}
+
 function deleteProduct() {
 	const deleteButtons = document.querySelectorAll(".deleteItem");
 	deleteButtons.forEach(function (deleteButton) {
@@ -212,6 +232,8 @@ function changeQuantity() {
 			}
 			let itemsStr = JSON.stringify(items);
 			localStorage.setItem("cartItems", itemsStr);
+
+			singleProductPrice(dataId, dataColor, productPrice);
 		});
 	});
 }
