@@ -95,6 +95,7 @@ async function displayCart() {
 			productSupprimer.textContent = "Supprimer";
 			productItemContentSettingsDelete.appendChild(productSupprimer);
 		}
+		grandTotal();
 	}
 }
 
@@ -115,3 +116,20 @@ async function getProductDetails(productId) {
 }
 
 displayCart();
+
+async function grandTotal() {
+	let productsInLocalStorage = JSON.parse(localStorage.getItem("cartItems"));
+	let totalQuantity = 0;
+	let totalPrice = 0;
+
+	for (product in productsInLocalStorage) {
+		const article = await getProductDetails(productsInLocalStorage[product].id);
+		// console.log(article);
+		totalQuantity += parseInt(productsInLocalStorage[product].quantity);
+		totalPrice += parseInt(
+			article.price * productsInLocalStorage[product].quantity
+		);
+	}
+	document.getElementById("totalQuantity").textContent = totalQuantity;
+	document.getElementById("totalPrice").textContent = totalPrice;
+}
