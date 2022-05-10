@@ -97,6 +97,7 @@ async function displayCart() {
 		}
 		grandTotal();
 		deleteProduct();
+		changeQuantity();
 	}
 }
 
@@ -167,6 +168,50 @@ function deleteProduct() {
 				deleteButton.closest("article").remove();
 			}
 			grandTotal();
+		});
+	});
+}
+
+function changeQuantity() {
+	const quantityInputs = document.querySelectorAll(".itemQuantity");
+	quantityInputs.forEach(function (quantityInput) {
+		quantityInput.addEventListener("change", function (event) {
+			event.preventDefault();
+			let inputValue = Number(event.target.value);
+			let productPrice = event.target
+				.closest("article")
+				.querySelector(".cart__item__content__description p:nth-child(3)");
+			const dataId = event.target.closest("article").dataset.id;
+			// console.log(dataId);
+			const dataColor = event.target.closest("article").dataset.color;
+			// console.log(dataColor);
+			let cartItems = localStorage.getItem("cartItems");
+			let items = JSON.parse(cartItems);
+
+			items = items.map(function (item, index) {
+				if (item.id === dataId && item.color === dataColor) {
+					item.quantity = inputValue;
+				}
+				return item;
+			});
+
+			if (!Number.isInteger(inputValue)) {
+				alert(
+					"Veuillez renseigner un nombre entier compris entre 1 et 100\r\n"
+				);
+				return;
+			} else if (inputValue == 0) {
+				alert("Veuillez renseigner une quantité\r\n");
+				return;
+			} else if (inputValue > 100) {
+				alert("La quantité maximale autorisée est de 100\r\n");
+				return;
+			} else if (inputValue < 0) {
+				alert("Veuillez ne pas saisir de valeur négative!\r\n");
+				return;
+			}
+			let itemsStr = JSON.stringify(items);
+			localStorage.setItem("cartItems", itemsStr);
 		});
 	});
 }
