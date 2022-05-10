@@ -98,4 +98,20 @@ async function displayCart() {
 	}
 }
 
+async function getProductDetails(productId) {
+	try {
+		const response = await fetch(
+			"http://localhost:3000/api/products/" + productId
+		);
+		if (response.ok) {
+			const data = await response.json();
+			return data;
+		} else {
+			throw new Error("Failed to load API");
+		}
+	} catch (error) {
+		console.log(error.message);
+	}
+}
+
 displayCart();
