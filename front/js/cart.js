@@ -96,6 +96,7 @@ async function displayCart() {
 			productItemContentSettingsDelete.appendChild(productSupprimer);
 		}
 		grandTotal();
+		deleteProduct();
 	}
 }
 
@@ -132,4 +133,40 @@ async function grandTotal() {
 	}
 	document.getElementById("totalQuantity").textContent = totalQuantity;
 	document.getElementById("totalPrice").textContent = totalPrice;
+}
+
+function deleteProduct() {
+	const deleteButtons = document.querySelectorAll(".deleteItem");
+	deleteButtons.forEach(function (deleteButton) {
+		deleteButton.addEventListener("click", function (event) {
+			event.preventDefault();
+			let productsInLocalStorage = JSON.parse(
+				localStorage.getItem("cartItems")
+			);
+			const deleteId = event.target.closest("article").dataset.id;
+			// console.log(deleteId);
+			const deleteColor = event.target.closest("article").dataset.color;
+
+			// console.log(deleteColor);
+			productsInLocalStorage = productsInLocalStorage.filter(function (
+				element
+			) {
+				return !(element.id == deleteId && element.color == deleteColor);
+			});
+			console.log(productsInLocalStorage);
+			deleteConfirm = window.confirm(
+				"Etes vous sûr de vouloir supprimer cet article ?"
+			);
+			if (deleteConfirm == true) {
+				localStorage.setItem(
+					"cartItems",
+					JSON.stringify(productsInLocalStorage)
+				);
+				alert("Article supprimé avec succès");
+
+				deleteButton.closest("article").remove();
+			}
+			grandTotal();
+		});
+	});
 }
