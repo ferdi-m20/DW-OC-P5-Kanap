@@ -232,7 +232,7 @@ function deleteProduct() {
 			) {
 				return !(element.id == deleteId && element.color == deleteColor);
 			});
-			console.log(productsInLocalStorage);
+			// console.log(productsInLocalStorage);
 			deleteConfirm = window.confirm(
 				"Etes vous sûr de vouloir supprimer cet article ?"
 			);
@@ -375,7 +375,39 @@ function form() {
 			});
 
 			let pageOrder = { contact, products };
+
 			// Appel à l'api order pour envoyer les tableaux
+			async function getOrderId() {
+				try {
+					const response = await fetch(
+						"http://localhost:3000/api/products/order",
+						{
+							method: "POST",
+							headers: {
+								Accept: "application/json",
+								"Content-type": "application/json",
+							},
+							body: JSON.stringify(pageOrder),
+						}
+					);
+					if (response.ok) {
+						const data = await response.json();
+						// console.log(data);
+						window.location.href =
+							"./confirmation.html?orderId=" + data.orderId;
+						localStorage.clear();
+					} else {
+						throw new Error("Failed to load API");
+					}
+				} catch (error) {
+					console.log(error.message);
+				}
+			}
+
+			getOrderId();
+
+			// Une autre façon de faire avec .then() et .catch()
+			/*
 			fetch("http://localhost:3000/api/products/order", {
 				method: "POST",
 				headers: {
@@ -395,6 +427,7 @@ function form() {
 				.catch(function (error) {
 					console.log("une erreur est survenue");
 				});
+            */
 		}
 	});
 }
