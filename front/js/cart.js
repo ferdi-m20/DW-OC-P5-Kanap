@@ -269,7 +269,7 @@ async function getProductDetails(productId) {
 
 // Forumulaire
 function form() {
-	// Variables Regex
+	// // Création des expressions régulières
 	let nameRegex = /^[a-zA-Z\-çñàéèêëïîôüù ]{2,}$/;
 	let addressRegex = /^[0-9a-zA-Z-çñàéèêëïîôüù ]{3,}$/;
 	let emailRegex = /^[a-zA-Z-_]+[@]{1}[a-zA-Z]+[.]{1}[a-z]{2,10}$/;
@@ -279,10 +279,10 @@ function form() {
 	const address = document.getElementById("address");
 	const city = document.getElementById("city");
 	const email = document.getElementById("email");
-	// Validation prénom
+	// Ecoute de la modification du prénom
 	firstName.addEventListener("input", function (event) {
 		event.preventDefault();
-
+		// Validation prénom
 		if (nameRegex.test())
 			if (nameRegex.test(firstName.value) == false || firstName.value == "") {
 				document.getElementById("firstNameErrorMsg").textContent =
@@ -293,9 +293,10 @@ function form() {
 				return true;
 			}
 	});
-	// Validation nom
+	// Ecoute de la modification du nom
 	lastName.addEventListener("input", function (event) {
 		event.preventDefault();
+		// Validation nom
 		if (nameRegex.test(lastName.value) == false || lastName.value == "") {
 			document.getElementById("lastNameErrorMsg").textContent =
 				"Nom non valide";
@@ -305,9 +306,10 @@ function form() {
 			return true;
 		}
 	});
-	// Validation adresse
+	// Ecoute de la modification de l'adresse
 	address.addEventListener("input", function (event) {
 		event.preventDefault();
+		// Validation adresse
 		if (addressRegex.test(address.value) == false || address.value == "") {
 			document.getElementById("addressErrorMsg").textContent =
 				"Adresse non valide";
@@ -317,9 +319,10 @@ function form() {
 			return true;
 		}
 	});
-	// Validation ville
+	// Ecoute de la modification de la ville
 	city.addEventListener("input", function (event) {
 		event.preventDefault();
+		// Validation ville
 		if (nameRegex.test(city.value) == false || city.value == "") {
 			document.getElementById("cityErrorMsg").textContent = "Ville non valide";
 			return false;
@@ -328,9 +331,10 @@ function form() {
 			return true;
 		}
 	});
-	// Validation email
+	// Ecoute de la modification de l'adresse mail
 	email.addEventListener("input", function (event) {
 		event.preventDefault();
+		// Validation email
 		if (emailRegex.test(email.value) == false || email.value == "") {
 			document.getElementById("emailErrorMsg").textContent = "Email non valide";
 			return false;
@@ -341,9 +345,10 @@ function form() {
 	});
 
 	let order = document.getElementById("order");
+	// Ecouter le bouton commander
 	order.addEventListener("click", function (event) {
 		event.preventDefault();
-		// Création d'un tableau afin de récuperer les données de l'utilisateur
+		// Création d'un tableau afin de récuperer les données de l'utilisateur attendu par l'API
 		let contact = {
 			firstName: firstName.value,
 			lastName: lastName.value,
@@ -351,7 +356,7 @@ function form() {
 			city: city.value,
 			email: email.value,
 		};
-
+		// Dans le cas où l'on envoi du formulaire de contact est vide
 		if (
 			firstName.value === "" ||
 			lastName.value === "" ||
@@ -360,7 +365,9 @@ function form() {
 			email.value === ""
 		) {
 			alert("Vous devez renseigner tous les champs pour passer la commande !");
-		} else if (
+		}
+		// Dans le cas où un des champs ne correspond pas aux condition exigés
+		else if (
 			nameRegex.test(firstName.value) == false ||
 			nameRegex.test(lastName.value) == false ||
 			addressRegex.test(address.value) == false ||
@@ -369,6 +376,7 @@ function form() {
 		) {
 			alert("Merci de renseigner correctement vos coordonnées !");
 		} else {
+			// Construction d'un array depuis le local storage
 			let products = [];
 			productsInLocalStorage.forEach(function (order) {
 				products.push(order.id);
@@ -397,7 +405,7 @@ function form() {
 							"./confirmation.html?orderId=" + data.orderId;
 						localStorage.clear();
 					} else {
-						throw new Error("Failed to load API");
+						throw new Error("Échec du chargement de l'API");
 					}
 				} catch (error) {
 					console.log(error.message);
