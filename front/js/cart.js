@@ -348,6 +348,8 @@ function form() {
 	// Ecouter le bouton commander
 	order.addEventListener("click", function (event) {
 		event.preventDefault();
+		// Récupération des produits du LocalStorage
+		let productsInLocalStorage = JSON.parse(localStorage.getItem("cartItems"));
 		// Création d'un tableau afin de récuperer les données de l'utilisateur attendu par l'API
 		let contact = {
 			firstName: firstName.value,
@@ -375,6 +377,10 @@ function form() {
 			emailRegex.test(email.value) == false
 		) {
 			alert("Merci de renseigner correctement vos coordonnées !");
+		} else if (productsInLocalStorage === null || productsInLocalStorage == 0) {
+			alert(
+				"Vous devez ajouter au moins un produit au panier pour passer commande !"
+			);
 		} else {
 			// Construction d'un array depuis le local storage
 			let products = [];
