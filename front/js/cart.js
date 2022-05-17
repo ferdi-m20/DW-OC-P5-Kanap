@@ -283,15 +283,14 @@ function form() {
 	firstName.addEventListener("input", function (event) {
 		event.preventDefault();
 		// Validation prénom
-		if (nameRegex.test())
-			if (nameRegex.test(firstName.value) == false || firstName.value == "") {
-				document.getElementById("firstNameErrorMsg").textContent =
-					"Prénom non valide";
-				return false;
-			} else {
-				document.getElementById("firstNameErrorMsg").textContent = "";
-				return true;
-			}
+		if (nameRegex.test(firstName.value) == false || firstName.value == "") {
+			document.getElementById("firstNameErrorMsg").textContent =
+				"Prénom non valide";
+			return false;
+		} else {
+			document.getElementById("firstNameErrorMsg").textContent = "";
+			return true;
+		}
 	});
 	// Ecoute de la modification du nom
 	lastName.addEventListener("input", function (event) {
@@ -377,7 +376,9 @@ function form() {
 			emailRegex.test(email.value) == false
 		) {
 			alert("Merci de renseigner correctement vos coordonnées !");
-		} else if (productsInLocalStorage === null || productsInLocalStorage == 0) {
+		}
+		// Si le localStorage est vide
+		else if (productsInLocalStorage === null || productsInLocalStorage == 0) {
 			alert(
 				"Vous devez ajouter au moins un produit au panier pour passer commande !"
 			);
