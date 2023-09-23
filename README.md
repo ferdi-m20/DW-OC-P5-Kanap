@@ -37,6 +37,9 @@ You will need to have Node and `npm` installed locally on your machine
 
 - [Visual Studio Code](https://code.visualstudio.com/) - Text editor
 - [GitHub](https://github.com/) - Version control tool
+
+**_ Backend _**
+
 - [Node.js](https://nodejs.org/en/) - Platform for running server-side JavaScript code
 - [Express](https://expressjs.com/fr/) - Web framework for Node.js
 
