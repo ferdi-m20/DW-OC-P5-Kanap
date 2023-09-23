@@ -25,7 +25,7 @@ You will need to have Node and `npm` installed locally on your machine.
 4. Further Information:
 
 - The server should run on `localhost` with default port `3000`.
-  If the server runs on another port for any reason, this is printed to the console when the server starts, e.g. `Listening on port 3001`.
+  If the server runs on another port for any reason, this is printed to the console when the server starts, e.g. `Listening on port 3001`
 
 ### Installing and launching Front-end:
 
@@ -33,10 +33,12 @@ You will need to have Node and `npm` installed locally on your machine.
 
 2. To make changes, edit the HTML, CSS or JS files using a text editor and save the file. Refresh the web page in your browser to see the updated version.
 
-## Tasks
+## Built With
 
-    - Use of HTML, CSS & Javascript
-    - Responsive Website
+- [Visual Studio Code](https://code.visualstudio.com/) - Text editor
+- [GitHub](https://github.com/) - Version control tool
+- [Node.js](https://nodejs.org/en/) - Platform for running server-side JavaScript code
+- [Express](https://expressjs.com/fr/) - Web framework for Node.js
 
 ## More Projects
 
