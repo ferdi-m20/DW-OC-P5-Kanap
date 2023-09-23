@@ -4,7 +4,7 @@ An e-commerce website using HTML, CSS & Javascript
 
 ## Back end Prerequisites
 
-You will need to have Node and `npm` installed locally on your machine.
+You will need to have Node and `npm` installed locally on your machine
 
 ## Installation
 
