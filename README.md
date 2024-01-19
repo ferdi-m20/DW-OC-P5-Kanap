@@ -12,7 +12,7 @@ You will need to have Node and `npm` installed locally on your machine
 
 1. Clone this repository:
 
-- `https://github.com/ferdinand-dev/DW-OC-P5-Kanap.git`
+- `git clone https://github.com/ferdinand-dev/DW-OC-P5-Kanap.git`
 
 2. Install all dependencies for Back-end:
 
